@@ -50,8 +50,7 @@ class Solution:
         W = initial_weights
 
         for _ in range(num_iterations):
-            Y_preds = X @ W
-            errors = Y_preds - Y
+            errors = X @ W - Y
             grads = 2 * (X.T @ errors) / len(X)
             W -= self.learning_rate * grads
 
