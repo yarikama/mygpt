@@ -47,7 +47,7 @@ class Solution:
 
         # return np.round(W, 5)
 
-        W = initial_weights.copy()
+        W = initial_weights
 
         for _ in range(num_iterations):
             Y_preds = X @ W
