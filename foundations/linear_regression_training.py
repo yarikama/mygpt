@@ -49,6 +49,18 @@ class Solution:
 
         W = initial_weights
 
+    # =====================================================================
+    # 利用 Jacobian 矩陣與微積分連鎖律 (Matrix Chain Rule) 進行全向量化梯度計算
+    #
+    # 數學推導過程 (Jacobian Derivation):
+    # 1. 損失函數 (MSE): L = (1/N) * ||E||² = (1/N) * EᵀE  , 其中 E = XW - Y
+    # 2. 依據連鎖律: ∂L/∂W = ∂L/∂E * ∂E/∂W
+    #    - 外層微分: ∂L/∂E = (2/N) * Eᵀ           [維度: 1 × N]
+    #    - 內層微分 (Jacobian): ∂E/∂W = X         [維度: N × D]
+    # 3. 合體得到列梯度: ∂L/∂W = (2/N) * EᵀX       [維度: 1 × D]
+    # 4. 轉置成立向量 (配合 W 的維度): ∇_w L = (2/N) * XᵀE  [維度: D × 1]
+    # =====================================================================
+
         for _ in range(num_iterations):
             grads = 2 * X.T @ (X @ W - Y) / len(X)
             W -= self.learning_rate * grads
