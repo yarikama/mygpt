@@ -31,17 +31,31 @@ class Solution:
         initial_weights: NDArray[np.float64]
     ) -> NDArray[np.float64]:
 
+        # W = initial_weights.copy()
+    
+        # # For each iteration:
+        # for _ in range(num_iterations):
+    
+        # #   1. Compute predictions with get_model_prediction(X, weights)
+        #     preds = self.get_model_prediction(X, W)
+    
+        # #   2. For each weight index j, compute gradient with get_derivative()
+        #     for j in range(len(W)):
+        #         grads = self.get_derivative(preds, Y, len(X), X, j)
+        #     #   3. Update: weights[j] -= learning_rate * gradient
+        #         W[j] -= self.learning_rate * grads
+
+        # return np.round(W, 5)
+
         W = initial_weights.copy()
-    
-        # For each iteration:
+
         for _ in range(num_iterations):
-    
-        #   1. Compute predictions with get_model_prediction(X, weights)
-            preds = self.get_model_prediction(X, W)
-    
-        #   2. For each weight index j, compute gradient with get_derivative()
-            for j in range(len(W)):
-                grads = self.get_derivative(preds, Y, len(X), X, j)
-            #   3. Update: weights[j] -= learning_rate * gradient
-                W[j] -= self.learning_rate * grads
+            Y_preds = X @ W
+            errors = Y_preds - Y
+            grads = 2 * (X.T @ errors) / len(X)
+            W -= self.learning_rate * grads
+
         return np.round(W, 5)
+            
+
+
