@@ -50,8 +50,7 @@ class Solution:
         W = initial_weights
 
         for _ in range(num_iterations):
-            errors = X @ W - Y
-            grads = 2 * (X.T @ errors) / len(X)
+            grads = 2 * X.T @ (X @ W - Y) / len(X)
             W -= self.learning_rate * grads
 
         return np.round(W, 5)
