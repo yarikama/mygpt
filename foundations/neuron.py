@@ -3,7 +3,14 @@ from numpy.typing import NDArray
 
 
 class Solution:
-    def forward(self, x: NDArray[np.float64], w: NDArray[np.float64], b: float, activation: str) -> float:
+    def forward(
+        self, 
+        x: NDArray[np.float64], 
+        w: NDArray[np.float64], 
+        b: float, 
+        activation: str
+    ) -> float:
+
         # x: 1D input array
         # w: 1D weight array (same length as x)
         # b: scalar bias
@@ -13,8 +20,13 @@ class Solution:
         # Sigmoid: σ(z) = 1 / (1 + exp(-z))
         # ReLU: max(0, z)
         # return round(your_answer, 5)
-        activation_func = lambda x: np.maximum(0.0, x) if activation == "relu" else 1 / (1 + np.exp(-x))
-        z = x.T @ w + b
-        return np.round(activation_func(z), 5)
 
+        z = x @ w + b
+        result = z
 
+        if activation == "sigmoid":
+            result = 1.0 / (1.0 + np.exp(-z))
+        elif activation == "relu":
+            result = max(0.0, result)
+
+        return round(result, 5)     
