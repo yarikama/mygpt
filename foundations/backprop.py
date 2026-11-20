@@ -21,10 +21,12 @@ class Solution:
         # Loss: L = 0.5 * (y_hat - y_true)^2
         # Return: (dL_dw rounded to 5 decimals, dL_db rounded to 5 decimals)
 
-        z = np.dot(x, w) + b
+        z = x @ w + b
         y_hat = 1 / (1 + np.exp(-z))
         error = y_hat - y_true
         MSE = np.mean(np.square(error))
         sig_desc = y_hat * (1 - y_hat)
+        dL_dw = sig_desc * error * x
+        dL_db = sig_desc * error
         
-        return np.round(sig_desc * error * x, 5), np.round(sig_desc * error, 5)
+        return np.round(dL_dw, 5), np.round(dL_db, 5)
