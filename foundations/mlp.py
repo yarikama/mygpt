@@ -19,9 +19,7 @@ class Solution:
         
         h = x
         for i, (w, b) in enumerate(zip(weights, biases)):
-
             h = h @ w + b
-
             if i < len(weights) - 1:
                 h = np.maximum(0, h)
 
