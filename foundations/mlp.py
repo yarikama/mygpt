@@ -18,9 +18,9 @@ class Solution:
         # return np.round(your_answer, 5)
         
         h = x
-        for i in range(len(weights)):
+        for i, (w, b) in enumerate(zip(weights, biases)):
 
-            h = h @ weights[i] + biases[i]
+            h = h @ w + b
 
             if i < len(weights) - 1:
                 h = np.maximum(0, h)
